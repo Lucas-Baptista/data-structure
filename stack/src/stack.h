@@ -19,6 +19,8 @@ void printCell(Cell *cell);
 
 Stack *createStack();
 
+void push(Stack *stack, int value);
+
 
 
 

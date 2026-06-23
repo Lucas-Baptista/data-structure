@@ -6,23 +6,31 @@
 void printStack(Stack *stack) {
     Cell *current = stack->top;
     
-    printf(" TOP\n  ↓ \n");
+    printf("\n TOP\n  ↓ \n");
 
     if (current == NULL) {
         printf(" NULL \n");
         return;
     }
      
-    printf(" %d \n ↓ \n", current->data);
+    printf("+----+\n");
+    printf("  %d  \n", current->data);
+    printf("+----+\n");
+    printf("  ↓ \n");
+
+    current = current->next;
     
     while (current != NULL){
         printf("+----+\n");
         printf("  %d  \n", current->data);
         printf("+----+\n");
         printf("  ↓ \n");
+
+        current = current->next;
     }
 
-    printf(" NULL \n");    
+    printf(" NULL \n\n");
+    printf("stack size: %d\n\n", stack->size);
 }
 
 void printCell (Cell *cell) {
@@ -49,4 +57,15 @@ Stack *createStack() {
     stack->size = 0;
 
     return stack;
+}
+
+void push(Stack *stack, int value) {
+    Cell *newCell = malloc(sizeof(Cell));
+
+    newCell->data = value;
+    
+    newCell->next = stack->top;
+
+    stack->top = newCell;
+    stack->size++;
 }

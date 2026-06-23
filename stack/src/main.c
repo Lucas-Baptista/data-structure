@@ -7,6 +7,9 @@
 int main() {
     Stack *stack = createStack();
 
+    push(stack, 5);
+    push(stack, 25);
+
     printStack(stack);
 
     return 0;
