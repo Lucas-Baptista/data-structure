@@ -13,4 +13,6 @@ void printList(LinkedList *list);
 
 void pushFront(LinkedList *list, int value);
 
+void pushBack(LinkedList *list, int value);
+
 #endif

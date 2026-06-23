@@ -31,3 +31,28 @@ void pushFront (LinkedList *list, int data) {
     list->head = newNode;
     
 }
+
+void pushBack (LinkedList *list, int data) {
+    Node *newNode = malloc(sizeof(Node));
+
+    if (newNode == NULL) {
+        return;
+    }
+
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (list->head == NULL) {
+        list->head = newNode;
+        return;
+    }
+
+    Node *current = list->head;
+
+    while (current->next != NULL) {
+        current = current->next;
+    }
+
+    current->next = newNode;
+    
+}

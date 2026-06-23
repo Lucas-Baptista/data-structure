@@ -7,7 +7,7 @@ int main() {
 
     initList(list);
 
-    pushFront(list, 9);
+    pushBack(list, 31);
 
     printList(list);
 
