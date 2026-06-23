@@ -93,3 +93,39 @@ void insertAt(LinkedList *list, int index, int value) {
 
     current->next = newNode;
 }
+
+void removeValue(LinkedList *list, int value) {
+
+    if (list->head == NULL) {
+        return;
+    }
+
+    if (list->head->data == value) {
+
+        Node *tmp = list->head;
+
+        list->head = list->head->next;
+
+        free(tmp);
+
+        return;
+    }
+
+    Node *current = list->head;
+
+    while (current->next != NULL) {
+
+        if (current->next->data == value) {
+
+            Node *tmp = current->next;
+
+            current->next = tmp->next;
+
+            free(tmp);
+
+            return;
+        }
+
+        current = current->next;
+    }
+}

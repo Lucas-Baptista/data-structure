@@ -13,11 +13,16 @@ int main() {
     pushFront(list, 241); // 2
     pushFront(list, 120); // 1
     pushFront(list, 96); // 0
+    
     pushBack(list, 31); // 6
     pushBack(list, 50); // 7
     pushBack(list, 325); // 8
 
     insertAt(list, 6, 400);
+
+    printList(list);
+
+    removeValue(list, 31);
 
     printList(list);
 
