@@ -21,7 +21,7 @@ Stack *createStack();
 
 void push(Stack *stack, int value);
 
-
+int pop(Stack* stack);
 
 
 

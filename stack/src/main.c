@@ -9,8 +9,10 @@ int main() {
 
     push(stack, 5);
     push(stack, 25);
+    push(stack, 15);
+    push(stack, 89);
 
-    printStack(stack);
+    pop(stack);
 
     return 0;
 }
