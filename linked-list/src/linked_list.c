@@ -18,28 +18,28 @@ void printList (LinkedList *list) {
     printf("NULL\n");
 }
 
-void pushFront (LinkedList *list, int data) {
+void pushFront (LinkedList *list, int value) {
     Node *newNode = malloc(sizeof(Node));
 
     if (newNode == NULL) {
         return;
     }
 
-    newNode->data = data;
+    newNode->data = value;
     newNode->next = list->head;
 
     list->head = newNode;
     
 }
 
-void pushBack (LinkedList *list, int data) {
+void pushBack (LinkedList *list, int value) {
     Node *newNode = malloc(sizeof(Node));
 
     if (newNode == NULL) {
         return;
     }
 
-    newNode->data = data;
+    newNode->data = value;
     newNode->next = NULL;
 
     if (list->head == NULL) {
@@ -55,4 +55,41 @@ void pushBack (LinkedList *list, int data) {
 
     current->next = newNode;
     
+}
+
+void insertAt(LinkedList *list, int index, int value) {
+    if (index < 0) {
+        return;
+    }
+
+    if (index == 0) {
+        pushFront(list, value);
+        return;
+    }
+
+    Node *current = list->head;
+
+    for (int i = 0; i < index - 1; i++) {
+
+        if (current == NULL) {
+            return;
+        }
+
+        current = current->next;
+    }
+
+    if (current == NULL) {
+        return;
+    }
+
+    Node *newNode = malloc(sizeof(Node));
+
+    if (newNode == NULL) {
+        return;
+    }
+
+    newNode->data = value;
+    newNode->next = current->next;
+
+    current->next = newNode;
 }

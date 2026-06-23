@@ -15,4 +15,6 @@ void pushFront(LinkedList *list, int value);
 
 void pushBack(LinkedList *list, int value);
 
+void insertAt(LinkedList *list, int index, int value);
+
 #endif
