@@ -162,3 +162,17 @@ Node *find(LinkedList *list, int value) {
     return NULL;
     
 }
+
+void freeList (LinkedList *list) {
+    Node *current = list->head;
+
+    while (current != NULL){
+        Node *next = current->next;
+
+        free(current);
+
+        current = next;
+    }
+
+    list->head = NULL;
+}

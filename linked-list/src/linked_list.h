@@ -23,4 +23,6 @@ void removeValue(LinkedList *list, int value);
 
 Node *find(LinkedList *list, int value);
 
+void freeList(LinkedList *list);
+
 #endif

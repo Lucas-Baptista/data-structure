@@ -32,5 +32,9 @@ int main() {
     Node *foundNode2 = find(list, 325);
     printNode(foundNode2);
 
+    freeList(list);
+
+    printList(list);
+
     return 0;
 }
