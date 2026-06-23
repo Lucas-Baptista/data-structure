@@ -11,6 +11,8 @@ void initList(LinkedList *list);
 
 void printList(LinkedList *list);
 
+void printNode(Node *node);
+
 void pushFront(LinkedList *list, int value);
 
 void pushBack(LinkedList *list, int value);
@@ -18,5 +20,7 @@ void pushBack(LinkedList *list, int value);
 void insertAt(LinkedList *list, int index, int value);
 
 void removeValue(LinkedList *list, int value);
+
+Node *find(LinkedList *list, int value);
 
 #endif

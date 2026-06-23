@@ -15,7 +15,24 @@ void printList (LinkedList *list) {
         current = current->next;
     }
 
-    printf("NULL\n");
+    printf("NULL\n\n");
+}
+
+void printNode(Node *node) {
+
+    printf("node........: %p\n", (void *)node);
+
+    if (node == NULL) {
+        printf("NULL\n\n");
+        return;
+    }
+
+    printf("data........: %d\n", node->data);
+    printf("next........: %p\n", (void *)node->next);
+    printf("&data.......: %p\n", (void *)&node->data);
+    printf("&next.......: %p\n", (void *)&node->next);
+
+    printf("\n");
 }
 
 void pushFront (LinkedList *list, int value) {
@@ -128,4 +145,20 @@ void removeValue(LinkedList *list, int value) {
 
         current = current->next;
     }
+}
+
+Node *find(LinkedList *list, int value) {
+    Node *current = list->head;
+
+    while (current != NULL) {
+
+        if (current->data == value) {
+            return current;
+        }
+
+        current = current->next;
+    }
+
+    return NULL;
+    
 }
