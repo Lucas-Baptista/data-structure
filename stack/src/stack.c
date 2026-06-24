@@ -30,7 +30,7 @@ void printStack(Stack *stack) {
     }
 
     printf(" NULL \n\n");
-    printf("stack size: %d\n", stack->size);
+    printf("stack size: %d\n\n", stack->size);
     printf("---------------------------------------\n\n");
 }
 
@@ -46,7 +46,7 @@ void printCell (Cell *cell) {
     printf("data........: %d\n", cell->data);
     printf("next........: %p\n", (void *)cell->next);
     printf("&data.......: %p\n", (void *)&cell->data);
-    printf("&next.......: %p\n", (void *)&cell->next);
+    printf("&next.......: %p\n\n", (void *)&cell->next);
 
     printf("---------------------------------------\n\n");
 }
@@ -62,7 +62,7 @@ Stack *createStack() {
 
 void push(Stack *stack, int value) {
     
-    printf("\nEmpilhando a céula: %d\n", value);
+    printf("Empilhando a céula: %d\n\n", value);
 
     Cell *newCell = malloc(sizeof(Cell));
 
@@ -79,8 +79,14 @@ void push(Stack *stack, int value) {
 int pop(Stack *stack) {
 
     Cell *tmpCell = stack->top;
+
+    if (tmpCell == NULL) {
+        printf("Pilha Vazia!\n");
+
+        exit(EXIT_FAILURE);
+    }
     
-    printf("Desempilhando a célula: %d\n", tempCell->data);
+    printf("Desempilhando a célula: %d\n\n", tmpCell->data);
 
     int cellData = tmpCell->data;
 
@@ -95,4 +101,20 @@ int pop(Stack *stack) {
     free(tmpCell);
 
     return cellData;
+}
+
+int peek(Stack *stack) {
+    Cell *peek = stack->top;
+
+    if (peek == NULL) {
+        printf("Pilha Vazia!\n");
+        
+        exit(EXIT_FAILURE);
+    }
+
+    printf("Topo da pilha: %d\n\n", peek->data);
+
+    printCell(peek);
+
+    return peek->data;
 }

@@ -14,5 +14,7 @@ int main() {
 
     pop(stack);
 
+    peek(stack);
+
     return 0;
 }
