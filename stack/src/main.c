@@ -21,5 +21,9 @@ int main() {
 
     size(stack);
 
+    freeStack(stack);
+
+    printStack(stack);
+
     return 0;
 }

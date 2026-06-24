@@ -134,3 +134,17 @@ int size(Stack *stack) {
 
     return stack->size;
 }
+
+void freeStack(Stack *stack) {
+    Cell *current = stack->top;
+
+    while (current != NULL){
+        Cell *next = current->next;
+
+        free(current);
+
+        current = next;
+    }
+
+    stack->top = NULL;
+}

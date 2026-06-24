@@ -25,8 +25,10 @@ int pop(Stack* stack);
 
 int peek(Stack *stack);
 
-bool isEmpty(Stack* stack);
+bool isEmpty(Stack *stack);
 
-int size(Stack* stack);
+int size(Stack *stack);
+
+void freeStack(Stack *stack);
 
 #endif
