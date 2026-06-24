@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "./stack.h"
 
@@ -15,6 +16,10 @@ int main() {
     pop(stack);
 
     peek(stack);
+
+    isEmpty(stack);
+
+    size(stack);
 
     return 0;
 }

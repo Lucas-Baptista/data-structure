@@ -25,4 +25,8 @@ int pop(Stack* stack);
 
 int peek(Stack *stack);
 
+bool isEmpty(Stack* stack);
+
+int size(Stack* stack);
+
 #endif

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "./stack.h"
 
@@ -117,4 +118,19 @@ int peek(Stack *stack) {
     printCell(peek);
 
     return peek->data;
+}
+
+bool isEmpty(Stack *stack) {
+    printf(stack->size > 0 
+        ? "A pilha não esta vazia\n\n" 
+        : "A pilha esta vazia\n\n"
+    );
+
+    return stack->size > 0;
+}
+
+int size(Stack *stack) {
+    printf("A Pilha contem %d elementos\n\n", stack->size);
+
+    return stack->size;
 }
