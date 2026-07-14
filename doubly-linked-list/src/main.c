@@ -13,5 +13,10 @@ int main() {
 
     printList(list);
 
+    pushBack(list, 20);
+    pushBack(list, 10);
+
+    printList(list);
+
     return 0;
 }

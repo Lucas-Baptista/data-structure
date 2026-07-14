@@ -20,4 +20,6 @@ DoublyLinkedList *initList();
 
 void pushFront(DoublyLinkedList *list, int data);
 
+void pushBack(DoublyLinkedList *list, int data);
+
 #endif

@@ -48,6 +48,11 @@ DoublyLinkedList *initList () {
 
 void pushFront (DoublyLinkedList *list, int data) {
     Node *newNode = malloc(sizeof(Node));
+
+    if (newNode == NULL) {
+        return
+    }
+
     newNode->data = data;
     newNode->prev = NULL;
 
@@ -55,8 +60,7 @@ void pushFront (DoublyLinkedList *list, int data) {
 
     if (list->head == NULL) {
         newNode->next = NULL;
-        list->head = newNode; 
-        list->tail = newNode;
+        list->head = list->tail = newNode;
         return;
     }
 
@@ -65,4 +69,29 @@ void pushFront (DoublyLinkedList *list, int data) {
     list->head->prev = newNode;
     
     list->head = newNode;
+}
+
+void pushBack(DoublyLinkedList *list, int data) {
+    Node *newNode = malloc(sizeof(Node));
+
+    if (newNode == NULL) {
+        return;
+    }
+
+    newNode->data = data;
+    newNode->next = NULL;
+
+    list->size++;
+
+    if (list->head == NULL) {
+        newNode->prev = NULL;
+        list->head = list->tail = newNode;
+        return;
+    }
+
+    newNode->prev = list->tail;
+    
+    list->tail->next = newNode;
+    
+    list->tail = newNode;
 }
