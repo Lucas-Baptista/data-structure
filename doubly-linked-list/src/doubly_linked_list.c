@@ -3,8 +3,34 @@
 
 #include "doubly_linked_list.h"
 
+DoublyLinkedList *initList () {
+    DoublyLinkedList *list = malloc(sizeof(DoublyLinkedList));
+
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
+
+    return list;
+}
+
+void reverseList(DoublyLinkedList *list) {
+    Node *current = list->head;
+
+    while (current != NULL) {
+        Node *temp = current->next;
+        current->next = current->prev;
+        current->prev = temp;
+
+        current = temp;
+    }
+
+    Node *temp = list->head;
+    list->head = list->tail;
+    list->tail = temp;
+}
+
 void printList(DoublyLinkedList *list) {
-     Node *current = list->head;
+    Node *current = list->head;
     
     printf(" Head\n  ↓ \n");
 
@@ -36,21 +62,13 @@ void printList(DoublyLinkedList *list) {
     printf("---------------------------------------\n\n");
 }
 
-DoublyLinkedList *initList () {
-    DoublyLinkedList *list = malloc(sizeof(DoublyLinkedList));
-
-    list->head = NULL;
-    list->tail = NULL;
-    list->size = 0;
-
-    return list;
-}
-
 void pushFront (DoublyLinkedList *list, int data) {
+    printf("INSERINDO O VALOR %d NO INICIO DA LISTA....\n\n", data);
+
     Node *newNode = malloc(sizeof(Node));
 
     if (newNode == NULL) {
-        return
+        return;
     }
 
     newNode->data = data;
@@ -72,6 +90,8 @@ void pushFront (DoublyLinkedList *list, int data) {
 }
 
 void pushBack(DoublyLinkedList *list, int data) {
+    printf("INSERINDO O VALOR %d NO FINAL DA LISTA....\n\n", data);
+
     Node *newNode = malloc(sizeof(Node));
 
     if (newNode == NULL) {

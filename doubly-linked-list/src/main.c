@@ -3,7 +3,6 @@
 #include "doubly_linked_list.h"
 
 int main() {
-    
     DoublyLinkedList *list = initList();
 
     pushFront(list, 30);
@@ -11,10 +10,12 @@ int main() {
     pushFront(list, 50);
     pushFront(list, 60);
 
-    printList(list);
-
     pushBack(list, 20);
     pushBack(list, 10);
+
+    printList(list);
+
+    reverseList(list);
 
     printList(list);
 

@@ -14,9 +14,11 @@ typedef struct DoublyLinkedList {
     int size;
 } DoublyLinkedList;
 
-void printList(DoublyLinkedList *list);
-
 DoublyLinkedList *initList();
+
+void reverseList(DoublyLinkedList *list);
+
+void printList(DoublyLinkedList *list);
 
 void pushFront(DoublyLinkedList *list, int data);
 
