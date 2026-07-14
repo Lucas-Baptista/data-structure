@@ -6,5 +6,12 @@ int main() {
     
     DoublyLinkedList *list = initList();
 
+    pushFront(list, 30);
+    pushFront(list, 40);
+    pushFront(list, 50);
+    pushFront(list, 60);
+
+    printList(list);
+
     return 0;
 }

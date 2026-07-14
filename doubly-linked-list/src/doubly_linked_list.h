@@ -14,6 +14,10 @@ typedef struct DoublyLinkedList {
     int size;
 } DoublyLinkedList;
 
+void printList(DoublyLinkedList *list);
+
 DoublyLinkedList *initList();
+
+void pushFront(DoublyLinkedList *list, int data);
 
 #endif
