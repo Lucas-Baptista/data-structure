@@ -29,5 +29,7 @@ int main() {
 
     size(list);
 
+    find(list, 55);
+
     return 0;
 }

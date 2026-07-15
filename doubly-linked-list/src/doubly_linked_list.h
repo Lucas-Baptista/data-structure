@@ -34,4 +34,6 @@ bool isEmpty(DoublyLinkedList *list);
 
 int size(DoublyLinkedList *list);
 
+Node *find(DoublyLinkedList *list, int value);
+
 #endif

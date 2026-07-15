@@ -165,3 +165,20 @@ int size(DoublyLinkedList *list) {
     printf("TAMANHO DA LISTA: %d\n\n", list->size);
     return list->size;
 }
+
+Node *find(DoublyLinkedList *list, int value) {
+    Node *current = list->head;
+
+    while (current != NULL) {
+        if (current->data == value) {
+            printf("ELEMENTO %d ENCONTRADO\n\n", value);
+            return current;
+        }
+
+        current = current->next;
+    }
+
+    printf("ELEMENTO %d NAO ENCONTRADO\n\n", value);
+    return NULL;
+    
+}
