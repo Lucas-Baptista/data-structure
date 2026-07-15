@@ -20,8 +20,18 @@ void reverseList(DoublyLinkedList *list);
 
 void printList(DoublyLinkedList *list);
 
+void printNode(Node *node);
+
 void pushFront(DoublyLinkedList *list, int data);
 
 void pushBack(DoublyLinkedList *list, int data);
+
+int head(DoublyLinkedList *list);
+
+int tail(DoublyLinkedList *list);
+
+bool isEmpty(DoublyLinkedList *list);
+
+int size(DoublyLinkedList *list);
 
 #endif

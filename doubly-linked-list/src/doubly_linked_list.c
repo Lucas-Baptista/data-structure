@@ -62,6 +62,23 @@ void printList(DoublyLinkedList *list) {
     printf("---------------------------------------\n\n");
 }
 
+void printNode (Node *node) {
+
+    printf("Node........: %p\n", (void *)node);
+
+    if (node == NULL) {
+        printf("NULL\n\n");
+        return;
+    }
+
+    printf("data........: %d\n", node->data);
+    printf("next........: %p\n", (void *)node->next);
+    printf("&data.......: %p\n", (void *)&node->data);
+    printf("&next.......: %p\n\n", (void *)&node->next);
+
+    printf("---------------------------------------\n\n");
+}
+
 void pushFront (DoublyLinkedList *list, int data) {
     printf("INSERINDO O VALOR %d NO INICIO DA LISTA....\n\n", data);
 
@@ -114,4 +131,37 @@ void pushBack(DoublyLinkedList *list, int data) {
     list->tail->next = newNode;
     
     list->tail = newNode;
+}
+
+int head(DoublyLinkedList *list) {
+    Node *head = list->head;
+
+    printf("INICIO DA LISTA---------------------\n\n");
+    
+    printNode(head);
+    
+    return head->data;
+}
+
+int tail(DoublyLinkedList *list) {
+    Node *tail = list->tail;
+
+    printf("FINAL DA LISTA---------------------\n\n");
+    
+    printNode(tail);
+    
+    return tail->data;
+}
+
+bool isEmpty(DoublyLinkedList *list) {
+    bool empty = list->size == 0;
+
+    empty ? printf("A LISTA ESTA VAZIA\n\n") : printf("A LISTA NAO ESTA VAZIA\n\n");
+    
+    return empty;
+}
+
+int size(DoublyLinkedList *list) {
+    printf("TAMANHO DA LISTA: %d\n\n", list->size);
+    return list->size;
 }

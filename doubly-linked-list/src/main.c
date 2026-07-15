@@ -19,5 +19,15 @@ int main() {
 
     printList(list);
 
+    reverseList(list);
+
+    head(list);
+
+    tail(list);
+
+    isEmpty(list);
+
+    size(list);
+
     return 0;
 }
