@@ -36,4 +36,6 @@ int size(DoublyLinkedList *list);
 
 Node *find(DoublyLinkedList *list, int value);
 
+bool insertAt(DoublyLinkedList *list, int value, int index);
+
 #endif

@@ -31,5 +31,9 @@ int main() {
 
     find(list, 55);
 
+    insertAt(list, 23, 2);
+
+    printList(list);
+
     return 0;
 }

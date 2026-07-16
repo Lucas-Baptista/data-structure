@@ -6,6 +6,11 @@
 DoublyLinkedList *initList () {
     DoublyLinkedList *list = malloc(sizeof(DoublyLinkedList));
 
+    if (list == NULL) {
+        printf("NÃO FOI POSSIVEL CRIAR UMA NOVA LISTA\n\n");
+        return false;
+    }
+
     list->head = NULL;
     list->tail = NULL;
     list->size = 0;
@@ -73,6 +78,7 @@ void printNode (Node *node) {
 
     printf("data........: %d\n", node->data);
     printf("next........: %p\n", (void *)node->next);
+    printf("prev........: %p\n", (void *)node->prev);
     printf("&data.......: %p\n", (void *)&node->data);
     printf("&next.......: %p\n\n", (void *)&node->next);
 
@@ -85,6 +91,7 @@ void pushFront (DoublyLinkedList *list, int data) {
     Node *newNode = malloc(sizeof(Node));
 
     if (newNode == NULL) {
+        printf("NÃO FOI POSSIVEL CRIAR UM NOVO NO\n\n");
         return;
     }
 
@@ -112,6 +119,7 @@ void pushBack(DoublyLinkedList *list, int data) {
     Node *newNode = malloc(sizeof(Node));
 
     if (newNode == NULL) {
+        printf("NÃO FOI POSSIVEL CRIAR UM NOVO NO\n\n");
         return;
     }
 
@@ -181,4 +189,46 @@ Node *find(DoublyLinkedList *list, int value) {
     printf("ELEMENTO %d NAO ENCONTRADO\n\n", value);
     return NULL;
     
+}
+
+bool insertAt(DoublyLinkedList *list, int value, int index) {
+
+    if (index < 0 || index > list->size) {
+        printf("NÃO FOI POSSIVEL INSERIR NA POSICAO DESEJADA\n\n");
+        return false;
+    }
+
+    if (index == 0) {
+        pushFront(list, value);
+        return true;
+    }
+
+    if (index == list->size) {
+        pushBack(list, value);
+        return true;
+    }
+
+    Node *current = list->head;
+
+    for (int i = 0; i < index - 1; i++) {
+        current = current->next;
+    }
+
+    Node *newNode = malloc(sizeof(Node));
+
+    if (newNode == NULL) {
+        printf("NÃO FOI POSSIVEL CRIAR UM NOVO NO\n\n");
+        return false;
+    }
+
+    newNode->data = value;
+    newNode->next = current->next;
+    newNode->prev = current;
+
+    current->next->prev = newNode;
+    current->next = newNode;
+
+    printf("ELEMENTO INSERIDO NA POSICAO DESEJADA\n\n");
+
+    return true;
 }
