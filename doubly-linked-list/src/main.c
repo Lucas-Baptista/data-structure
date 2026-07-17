@@ -55,5 +55,9 @@ int main() {
 
     printList(list);
 
+    removeAt(list, 3);
+    
+    printList(list);
+
     return 0;
 }

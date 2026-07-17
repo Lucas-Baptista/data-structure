@@ -38,9 +38,11 @@ Node *find(DoublyLinkedList *list, int value);
 
 bool insertAt(DoublyLinkedList *list, int value, int index);
 
-int popFront(DoublyLinkedList *list);
+bool removeAt(DoublyLinkedList *list, int index);
 
-int popBack(DoublyLinkedList *list);
+bool popFront(DoublyLinkedList *list);
+
+bool popBack(DoublyLinkedList *list);
 
 bool removeValue(DoublyLinkedList *list, int value);
 

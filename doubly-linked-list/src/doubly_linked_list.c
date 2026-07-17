@@ -231,13 +231,54 @@ bool insertAt(DoublyLinkedList *list, int value, int index) {
     return true;
 }
 
-int popFront(DoublyLinkedList *list) {
+bool removeAt(DoublyLinkedList *list, int index) {
+
+    if (list == NULL || index < 0 || index >= list->size)
+        return false;
+
+    if (index == 0) {
+        popFront(list);
+        return true;
+    }
+
+    if (index == list->size - 1) {
+        popBack(list);
+        return true;
+    }
+
+    Node *current;
+
+    if (index < list->size / 2) {
+
+        current = list->head;
+
+        for (int i = 0; i < index; i++)
+            current = current->next;
+
+    } else {
+
+        current = list->tail;
+
+        for (int i = list->size - 1; i > index; i--)
+            current = current->prev;
+    }
+
+    current->prev->next = current->next;
+    current->next->prev = current->prev;
+
+    free(current);
+
+    list->size--;
+
+    return true;
+}
+
+bool popFront(DoublyLinkedList *list) {
 
     if (list == NULL || list->head == NULL)
-        return -1;
+        return false;
 
     Node *tmp = list->head;
-    int data = tmp->data;
 
     list->head = tmp->next;
 
@@ -250,16 +291,15 @@ int popFront(DoublyLinkedList *list) {
 
     list->size--;
 
-    return data;
+    return true;
 }
 
-int popBack(DoublyLinkedList *list) {
+bool popBack(DoublyLinkedList *list) {
 
     if (list == NULL || list->tail == NULL)
-        return -1;
+        return false;
 
     Node *tmp = list->tail;
-    int data = tmp->data;
 
     list->tail = tmp->prev;
 
@@ -272,7 +312,7 @@ int popBack(DoublyLinkedList *list) {
 
     list->size--;
 
-    return data;
+    return true;
 }
 
 bool removeValue(DoublyLinkedList *list, int value) {
