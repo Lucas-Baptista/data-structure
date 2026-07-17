@@ -228,7 +228,53 @@ bool insertAt(DoublyLinkedList *list, int value, int index) {
     current->next->prev = newNode;
     current->next = newNode;
 
+    list->size++;
+
     printf("ELEMENTO INSERIDO NA POSICAO DESEJADA\n\n");
 
     return true;
+}
+
+int popFront(DoublyLinkedList *list) {
+
+    if (list == NULL || list->head == NULL)
+        return -1;
+
+    Node *tmp = list->head;
+    int data = tmp->data;
+
+    list->head = tmp->next;
+
+    if (list->head != NULL)
+        list->head->prev = NULL;
+    else
+        list->tail = NULL;
+
+    free(tmp);
+
+    list->size--;
+
+    return data;
+}
+
+int popBack(DoublyLinkedList *list) {
+
+    if (list == NULL || list->tail == NULL)
+        return -1;
+
+    Node *tmp = list->tail;
+    int data = tmp->data;
+
+    list->tail = tmp->prev;
+
+    if (list->tail != NULL)
+        list->tail->next = NULL;
+    else
+        list->head = NULL;
+
+    free(tmp);
+
+    list->size--;
+
+    return data;
 }

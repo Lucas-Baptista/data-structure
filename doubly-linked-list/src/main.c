@@ -35,5 +35,13 @@ int main() {
 
     printList(list);
 
+    popFront(list);
+
+    printList(list);
+
+    popBack(list);
+
+    printList(list);
+
     return 0;
 }

@@ -38,4 +38,8 @@ Node *find(DoublyLinkedList *list, int value);
 
 bool insertAt(DoublyLinkedList *list, int value, int index);
 
+int popFront(DoublyLinkedList *list);
+
+int popBack(DoublyLinkedList *list);
+
 #endif
