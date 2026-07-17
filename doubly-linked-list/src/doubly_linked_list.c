@@ -35,35 +35,31 @@ void reverseList(DoublyLinkedList *list) {
 }
 
 void printList(DoublyLinkedList *list) {
-    Node *current = list->head;
-    
-    printf(" Head\n  ↓ \n");
+    printf("---------------------------------------\n");
 
-    if (current == NULL) {
-        printf(" NULL \n");
-        printf("  ↑ \n Tail \n\n");
-        printf("List size: %d\n\n", list->size);
+    if (list == NULL || list->head == NULL) {
+        printf("Head -> NULL <- Tail\n");
+        printf("List size: %d\n", list ? list->size : 0);
         printf("---------------------------------------\n\n");
         return;
     }
-     
-    printf("+----+\n");
-    printf("  %d  \n", current->data);
-    printf("+----+\n");
 
-    current = current->next;
-    
-    while (current != NULL){
-        printf("  ↑↓ \n");
-        printf("+----+\n");
-        printf("  %d  \n", current->data);
-        printf("+----+\n");
+    Node *current = list->head;
+
+    printf("Head -> ");
+
+    while (current != NULL) {
+        printf("[%d]", current->data);
+
+        if (current->next != NULL)
+            printf(" ⇄ ");
 
         current = current->next;
     }
 
-    printf("  ↑ \n Tail \n\n");
-    printf("list size: %d\n\n", list->size);
+    printf(" <- Tail\n");
+
+    printf("List size: %d\n", list->size);
     printf("---------------------------------------\n\n");
 }
 
@@ -277,4 +273,42 @@ int popBack(DoublyLinkedList *list) {
     list->size--;
 
     return data;
+}
+
+bool removeValue(DoublyLinkedList *list, int value) {
+
+    if (list == NULL || list->head == NULL){
+        return false;
+    }
+
+    if (list->head->data == value) {
+        popFront(list);
+        return true;
+    }
+
+    if (list->tail->data == value) {
+        popBack(list);
+        return true;
+    }
+
+    Node *current = list->head->next;
+
+    while (current != list->tail) {
+
+        if (current->data == value) {
+
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+
+            free(current);
+
+            list->size--;
+
+            return true;
+        }
+
+        current = current->next;
+    }
+
+    return false;
 }

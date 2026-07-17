@@ -42,4 +42,7 @@ int popFront(DoublyLinkedList *list);
 
 int popBack(DoublyLinkedList *list);
 
+bool removeValue(DoublyLinkedList *list, int value);
+
+
 #endif

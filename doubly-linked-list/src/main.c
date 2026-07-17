@@ -43,5 +43,17 @@ int main() {
 
     printList(list);
 
+    removeValue(list, 40);
+
+    printList(list);
+
+    removeValue(list, 60);
+
+    printList(list);
+
+    removeValue(list, 10);
+
+    printList(list);
+
     return 0;
 }
