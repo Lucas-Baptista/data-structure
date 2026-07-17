@@ -46,5 +46,8 @@ bool popBack(DoublyLinkedList *list);
 
 bool removeValue(DoublyLinkedList *list, int value);
 
+void freeList(DoublyLinkedList *list);
+
+void destroyList(DoublyLinkedList *list);
 
 #endif

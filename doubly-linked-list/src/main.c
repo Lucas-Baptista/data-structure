@@ -59,5 +59,7 @@ int main() {
     
     printList(list);
 
+    destroyList(list);
+
     return 0;
 }

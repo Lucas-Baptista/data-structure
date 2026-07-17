@@ -352,3 +352,30 @@ bool removeValue(DoublyLinkedList *list, int value) {
 
     return false;
 }
+
+void freeList(DoublyLinkedList *list) {
+
+    if (list == NULL)
+        return;
+
+    Node *current = list->head;
+
+    while (current != NULL) {
+        Node *next = current->next;
+        free(current);
+        current = next;
+    }
+
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
+}
+
+void destroyList(DoublyLinkedList *list) {
+
+    if (list == NULL)
+        return;
+
+    freeList(list);
+    free(list);
+}
