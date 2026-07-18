@@ -1,158 +1,216 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "linked_list.h"
 
-void initList (LinkedList *list) {
-    list->head = NULL;
+/* ==========================================================
+ * Helpers privados
+ * ========================================================== */
+static Node *createNode(int value) {
+    Node *newNode = malloc(sizeof(Node));
+
+    if (!newNode) {
+        return NULL;
+    }
+    
+    newNode->data = value;
+    newNode->next = NULL;
+    
+    return newNode;
 }
 
-void printList (LinkedList *list) {
+static Node *getNodeAt(LinkedList *list, int index) {
+    Node *current = list->head;
+    
+    for(int i = 0; current && i < index; i++)
+        current=current->next;
+    
+    return current;
+}
+
+/* ==========================================================
+ * Inicialização
+ * ========================================================== */
+
+LinkedList *initList(void) {
+    LinkedList *list = malloc(sizeof(LinkedList));
+   
+    if (!list) {
+        return NULL;
+    }
+    
+    list->head = NULL;
+
+    return list;
+}
+
+/* ==========================================================
+ * Impressão
+ * ========================================================== */
+
+ void printList(LinkedList *list) {
+    printf("Head -> ");
+    
     Node *current = list->head;
 
-    while (current != NULL){
-        printf("%d -> ", current->data);
+    while (current != NULL) {
+        printf("[%d] -> ", current->data);
+
         current = current->next;
     }
-
-    printf("NULL\n\n");
+    
+    printf("NULL\n\nList size: %d\n", size(list));
 }
 
 void printNode(Node *node) {
+    if (!node) { 
+        printf("Node: NULL\n"); 
 
-    printf("node........: %p\n", (void *)node);
-
-    if (node == NULL) {
-        printf("NULL\n\n");
-        return;
+        return; 
     }
-
-    printf("data........: %d\n", node->data);
-    printf("next........: %p\n", (void *)node->next);
-    printf("&data.......: %p\n", (void *)&node->data);
-    printf("&next.......: %p\n", (void *)&node->next);
-
-    printf("\n");
-}
-
-void pushFront (LinkedList *list, int value) {
-    Node *newNode = malloc(sizeof(Node));
-
-    if (newNode == NULL) {
-        return;
-    }
-
-    newNode->data = value;
-    newNode->next = list->head;
-
-    list->head = newNode;
     
+    printf("=============== NODE ===============\n");
+    printf("Address : %p\n",(void*)node);
+    printf("Data    : %d\n",node->data);
+    printf("Next    : %p\n",(void*)node->next);
+    printf("====================================\n");
 }
 
-void pushBack (LinkedList *list, int value) {
-    Node *newNode = malloc(sizeof(Node));
+/* ==========================================================
+ * Inserção
+ * ========================================================== */
 
-    if (newNode == NULL) {
+ void pushFront(LinkedList *list, int value){
+    Node *newNode = createNode(value);
+    
+    if (!newNode) return;
+    
+    newNode->next = list->head;
+    list->head = newNode;
+}
+
+void pushBack(LinkedList *list, int value){
+    Node *newNode = createNode(value);
+    
+    if (!newNode) {
         return;
     }
-
-    newNode->data = value;
-    newNode->next = NULL;
-
-    if (list->head == NULL) {
-        list->head = newNode;
-        return;
+    
+    if (isEmpty(list)) { 
+        list->head = newNode; 
+        
+        return; 
     }
-
+    
     Node *current = list->head;
-
-    while (current->next != NULL) {
+    
+    while(current->next) {
         current = current->next;
     }
-
-    current->next = newNode;
     
+    current->next = newNode;
 }
 
-void insertAt(LinkedList *list, int index, int value) {
+bool insertAt(LinkedList *list, int index, int value){
     if (index < 0) {
-        return;
+        return false;
     }
 
     if (index == 0) {
         pushFront(list, value);
-        return;
+        
+        return true;
     }
+    
+    Node *prev = getNodeAt(list, index - 1);
 
-    Node *current = list->head;
-
-    for (int i = 0; i < index - 1; i++) {
-
-        if (current == NULL) {
-            return;
-        }
-
-        current = current->next;
+    if (!prev) {
+        return false;
     }
-
-    if (current == NULL) {
-        return;
+    
+    Node *newNode = createNode(value);
+    
+    if (!newNode) {
+        return false;
     }
-
-    Node *newNode = malloc(sizeof(Node));
-
-    if (newNode == NULL) {
-        return;
-    }
-
-    newNode->data = value;
-    newNode->next = current->next;
-
-    current->next = newNode;
+    
+    newNode->next = prev->next;
+    
+    prev->next = newNode;
+    
+    return true;
 }
 
-void removeValue(LinkedList *list, int value) {
+/* ==========================================================
+ * Remoção
+ * ========================================================== */
 
-    if (list->head == NULL) {
-        return;
+bool removeValue(LinkedList *list,int value){
+    if (isEmpty(list)) {
+        return false;
     }
 
     if (list->head->data == value) {
+        Node *tempNode = list->head;
 
-        Node *tmp = list->head;
+        list->head = tempNode->next;
 
-        list->head = list->head->next;
+        free(tempNode);
 
-        free(tmp);
-
-        return;
+        return true;
     }
 
     Node *current = list->head;
 
-    while (current->next != NULL) {
+    while (current->next) {
+        
+        if(current->next->data == value) {
+            
+            Node *tempNode=current->next;
 
-        if (current->next->data == value) {
-
-            Node *tmp = current->next;
-
-            current->next = tmp->next;
-
-            free(tmp);
-
-            return;
+            current->next = tempNode->next;
+            
+            free(tempNode);
+            
+            return true;
         }
+
+        current=current->next;
+    }
+
+    return false;
+}
+
+/* ==========================================================
+ * Consulta
+ * ========================================================== */
+
+bool isEmpty(LinkedList *list){
+    return !list || list->head == NULL;
+}
+
+int size(LinkedList *list) {
+    Node *current = list->head;
+
+    int count = 0;
+
+    while (current != NULL) {
+        count++;
 
         current = current->next;
     }
+    
+    return count;
 }
+
 
 Node *find(LinkedList *list, int value) {
     Node *current = list->head;
-
+    
     while (current != NULL) {
 
-        if (current->data == value) {
+        if(current->data == value) {
             return current;
         }
 
@@ -160,19 +218,33 @@ Node *find(LinkedList *list, int value) {
     }
 
     return NULL;
-    
 }
 
-void freeList (LinkedList *list) {
+/* ==========================================================
+ * Destruição
+ * ========================================================== */
+
+void freeList(LinkedList *list) {
     Node *current = list->head;
 
-    while (current != NULL){
-        Node *next = current->next;
-
+    while (current != NULL) {
+        Node *temp = current->next;
+        
         free(current);
-
-        current = next;
+        
+        current = temp;
     }
 
     list->head = NULL;
 }
+
+void destroyList(LinkedList *list) {
+    if (!list) {
+        return;
+    }
+
+    freeList(list);
+    
+    free(list);
+}
+
