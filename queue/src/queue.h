@@ -9,29 +9,31 @@ typedef struct Node {
 } Node;
 
 typedef struct Queue {
-    struct Node *front;
-    struct Node *rear;
+    Node *front;
+    Node *rear;
     int size;
 } Queue;
 
-void printQueue(Queue *queue);
+Queue *initQueue(void);
 
-void printNode(Node *node, char *type);
+bool enqueue(Queue *queue, int value);
 
-Queue *initQueue();
+bool dequeue(Queue *queue, int *value);
 
-void enqueue(Queue *queue, int value);
+const Node *front(const Queue *queue);
 
-int dequeue(Queue *queue);
+const Node *rear(const Queue *queue);
 
-Node *front(Queue *queue);
+bool isEmpty(const Queue *queue);
 
-Node *rear(Queue *queue);
+int size(const Queue *queue);
 
-bool isEmpty(Queue *queue);
+void printQueue(const Queue *queue);
 
-int size(Queue *queue);
+void printNode(const Node *node);
 
 void freeQueue(Queue *queue);
+
+void destroyQueue(Queue *queue);
 
 #endif

@@ -1,62 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
-#include "./queue.h"
+#include "queue.h"
 
-void printQueue(Queue *queue) {
-    Node *current = queue->front;
-    
-    printf(" front\n  ↓ \n");
+/* ==========================================================
+ * Helpers privados
+ * ========================================================== */
 
-    if (current == NULL) {
-        printf(" NULL \n");
-        printf("  ↑ \n Rear \n\n");
-        printf("Queue size: %d\n\n", queue->size);
-        printf("---------------------------------------\n\n");
-        return;
-    }
-     
-    printf("+----+\n");
-    printf("  %d  \n", current->data);
-    printf("+----+\n");
+static Node *createNode(int value) {
+    Node *newNode = malloc(sizeof(Node));
 
-    current = current->next;
-    
-    while (current != NULL){
-        printf("  ↓ \n");
-        printf("+----+\n");
-        printf("  %d  \n", current->data);
-        printf("+----+\n");
-
-        current = current->next;
+    if (newNode == NULL) {
+        return NULL;
     }
 
-    printf("  ↑ \n Rear \n\n");
-    printf("Queue size: %d\n\n", queue->size);
-    printf("---------------------------------------\n\n");
+    newNode->data = value;
+    newNode->next = NULL;
+
+    return newNode;
 }
 
-void printNode (Node *node, char *type) {
+/* ==========================================================
+ * Inicialização
+ * ========================================================== */
 
-    printf("Node........: %s\n", type);
-    printf("Node........: %p\n", (void *)node);
-
-    if (node == NULL) {
-        printf("NULL\n\n");
-        return;
-    }
-
-    printf("data........: %d\n", node->data);
-    printf("next........: %p\n", (void *)node->next);
-    printf("&data.......: %p\n", (void *)&node->data);
-    printf("&next.......: %p\n\n", (void *)&node->next);
-
-    printf("---------------------------------------\n\n");
-}
-
-Queue *initQueue() {
+Queue *initQueue(void) {
     Queue *queue = malloc(sizeof(Queue));
+
+    if (queue == NULL) {
+        return NULL;
+    }
 
     queue->front = NULL;
     queue->rear = NULL;
@@ -65,13 +38,18 @@ Queue *initQueue() {
     return queue;
 }
 
-void enqueue(Queue *queue, int data) {
-    Node *newNode = malloc(sizeof(Node));
+/* ==========================================================
+ * Inserção
+ * ========================================================== */
 
-    newNode->data = data;
-    newNode->next = NULL;
+bool enqueue(Queue *queue, int value) {
+    if (queue == NULL) {
+        return false;
+    }
 
-   if (queue->front == NULL) {
+    Node *newNode = createNode(value);
+
+    if (isEmpty(queue)) {
         queue->front = newNode;
         queue->rear = newNode;
     } else {
@@ -80,59 +58,124 @@ void enqueue(Queue *queue, int data) {
     }
 
     queue->size++;
+
+    return true;
 }
 
-int dequeue(Queue *queue) {
-    if (queue == NULL || queue->front == NULL) {
-        printf("Queue is empty!\n");
-        return -1; // ou outro valor de erro
+/* ==========================================================
+ * Remoção
+ * ========================================================== */
+
+bool dequeue(Queue *queue, int *value) {
+    if (queue == NULL || isEmpty(queue)) {
+        return false;
     }
 
-    Node *frontTmp = queue->front;
-    int tmpData = frontTmp->data;
+    Node *temp = queue->front;
 
-    queue->front = frontTmp->next;
+    *value = temp->data;
+
+    queue->front = temp->next;
 
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
 
-    free(frontTmp);
+    free(temp);
+
     queue->size--;
 
-    return tmpData;
+    return true;
 }
 
-Node *front(Queue *queue) {
-    Node *frontNode = queue->front; 
-    return frontNode;
+/* ==========================================================
+ * Consulta
+ * ========================================================== */
+
+const Node *front(const Queue *queue) {
+    if (queue == NULL) {
+        return NULL;
+    }
+
+    return queue->front;
 }
 
-Node *rear(Queue *queue) {
-    Node *rearNode = queue->rear; 
-    return rearNode;
+const Node *rear(const Queue *queue) {
+    if (queue == NULL) {
+        return NULL;
+    }
+
+    return queue->rear;
 }
 
-bool isEmpty(Queue *queue) {
-    bool empty = queue->front == NULL;
-    
-    printf(empty ? "A FILA ESTÁ VAZIA\n\n" : "A FILA NÃO ESTÁ VAZIA\n\n");
-
-    return empty;
+bool isEmpty(const Queue *queue) {
+    return queue == NULL || queue->front == NULL;
 }
 
-int size(Queue *queue) {
-    printf("HÁ %d ELEMENTOS NA FILA\n\n", queue->size);
+int size(const Queue *queue) {
+    if (queue == NULL) {
+        return 0;
+    }
 
     return queue->size;
 }
 
+/* ==========================================================
+ * Impressão
+ * ========================================================== */
+
+void printQueue(const Queue *queue) {
+    printf("Front -> ");
+
+    if (queue == NULL || isEmpty(queue)) {
+        printf("NULL <- Rear\n");
+        printf("\nQueue size: 0\n");
+
+        return;
+    }
+
+    const Node *current = queue->front;
+
+    while (current != NULL) {
+        printf("[%d]", current->data);
+
+        if (current->next != NULL) {
+            printf(" -> ");
+        }
+
+        current = current->next;
+    }
+
+    printf(" <- Rear");
+    printf("\nQueue size: %d\n", queue->size);
+}
+
+void printNode(const Node *node) {
+    if (node == NULL) {
+        printf("Node: NULL\n");
+
+        return;
+    }
+
+    printf("=============== NODE ===============\n");
+    printf("Address : %p\n", (void *)node);
+    printf("Data    : %d\n", node->data);
+    printf("Next    : %p\n", (void *)node->next);
+    printf("====================================\n");
+}
+
+/* ==========================================================
+ * Limpeza
+ * ========================================================== */
+
 void freeQueue(Queue *queue) {
-    printf("LINPANDO A LISTA -----------------------------\n\n");
+    if (queue == NULL) {
+        return;
+    }
 
     Node *current = queue->front;
 
-    while (current != NULL){
+    while (current != NULL) {
         Node *next = current->next;
 
         free(current);
@@ -140,7 +183,17 @@ void freeQueue(Queue *queue) {
         current = next;
     }
 
-    queue->size = 0;
     queue->front = NULL;
     queue->rear = NULL;
+    queue->size = 0;
+}
+
+void destroyQueue(Queue *queue) {
+    if (queue == NULL) {
+        return;
+    }
+
+    freeQueue(queue);
+
+    free(queue);
 }
