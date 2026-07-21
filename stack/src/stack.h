@@ -5,7 +5,7 @@
 
 typedef struct Cell {
     int data;
-    struct Cell *next;    
+    struct Cell *next;
 } Cell;
 
 typedef struct Stack {
@@ -13,22 +13,24 @@ typedef struct Stack {
     int size;
 } Stack;
 
-void printStack(Stack *stack);
-
-void printCell(Cell *cell);
-
 Stack *createStack();
 
-void push(Stack *stack, int value);
+bool push(Stack *stack, int value);
 
-int pop(Stack* stack);
+bool pop(Stack *stack, int *value);
 
-int peek(Stack *stack);
+const Cell *peek(const Stack *stack);
 
-bool isEmpty(Stack *stack);
+bool isEmpty(const Stack *stack);
 
 int size(Stack *stack);
 
+void printStack(const Stack *stack);
+
+void printCell(const Cell *cell);
+
 void freeStack(Stack *stack);
+
+void destroyStack(Stack *stack);
 
 #endif

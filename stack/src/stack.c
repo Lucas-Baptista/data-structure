@@ -4,53 +4,26 @@
 
 #include "./stack.h"
 
-void printStack(Stack *stack) {
-    Cell *current = stack->top;
-    
-    printf(" TOP\n  ↓ \n");
+/* ==========================================================
+ * Helpers privados
+ * ========================================================== */
 
-    if (current == NULL) {
-        printf(" NULL \n");
-        return;
-    }
-     
-    printf("+----+\n");
-    printf("  %d  \n", current->data);
-    printf("+----+\n");
-    printf("  ↓ \n");
+static Cell *createCell(int value) {
+    Cell *newCell = malloc(sizeof(Cell));
 
-    current = current->next;
-    
-    while (current != NULL){
-        printf("+----+\n");
-        printf("  %d  \n", current->data);
-        printf("+----+\n");
-        printf("  ↓ \n");
-
-        current = current->next;
+    if (newCell == NULL) {
+        return NULL;
     }
 
-    printf(" NULL \n\n");
-    printf("stack size: %d\n\n", stack->size);
-    printf("---------------------------------------\n\n");
+    newCell->data = value;
+    newCell->next = NULL;
+
+    return newCell;
 }
 
-void printCell (Cell *cell) {
-
-    printf("cell........: %p\n", (void *)cell);
-
-    if (cell == NULL) {
-        printf("NULL\n\n");
-        return;
-    }
-
-    printf("data........: %d\n", cell->data);
-    printf("next........: %p\n", (void *)cell->next);
-    printf("&data.......: %p\n", (void *)&cell->data);
-    printf("&next.......: %p\n\n", (void *)&cell->next);
-
-    printf("---------------------------------------\n\n");
-}
+/* ==========================================================
+ * Inicialização
+ * ========================================================== */
 
 Stack *createStack() {
     Stack *stack = malloc(sizeof(Stack));
@@ -61,81 +34,126 @@ Stack *createStack() {
     return stack;
 }
 
-void push(Stack *stack, int value) {
-    
-    printf("Empilhando a céula: %d\n\n", value);
+/* ==========================================================
+ * Inserção
+ * ========================================================== */
 
-    Cell *newCell = malloc(sizeof(Cell));
+bool push(Stack *stack, int value) {
+    if (stack == NULL) {
+        return false;
+    }
 
-    newCell->data = value;
-    
+    Cell *newCell = createCell(value);
+
+    if (!newCell) return false;
+
     newCell->next = stack->top;
 
     stack->top = newCell;
     stack->size++;
 
-    printStack(stack);
+    return true;
 }
 
-int pop(Stack *stack) {
+/* ==========================================================
+ * Remoção
+ * ========================================================== */
+
+bool pop(Stack *stack, int *value) {
 
     Cell *tmpCell = stack->top;
 
     if (tmpCell == NULL) {
-        printf("Pilha Vazia!\n");
-
-        exit(EXIT_FAILURE);
+        return false;
     }
+
+    *value = stack->top->data;
     
-    printf("Desempilhando a célula: %d\n\n", tmpCell->data);
-
-    int cellData = tmpCell->data;
-
     stack->top = tmpCell->next;
 
     stack->size--;
     
-    printCell(tmpCell);
-    
-    printStack(stack); 
-
     free(tmpCell);
 
-    return cellData;
+    return true;
 }
 
-int peek(Stack *stack) {
-    Cell *peek = stack->top;
+/* ==========================================================
+ * Consulta
+ * ========================================================== */
 
-    if (peek == NULL) {
-        printf("Pilha Vazia!\n");
-        
-        exit(EXIT_FAILURE);
+const Cell *peek(const Stack *stack) {
+    if (stack == NULL) {
+        return NULL;
     }
 
-    printf("Topo da pilha: %d\n\n", peek->data);
-
-    printCell(peek);
-
-    return peek->data;
+    return stack->top;
 }
 
-bool isEmpty(Stack *stack) {
-    printf(stack->size > 0 
-        ? "A pilha não esta vazia\n\n" 
-        : "A pilha esta vazia\n\n"
-    );
-
-    return stack->size > 0;
+bool isEmpty(const Stack *stack) {
+    return stack == NULL || stack->top == NULL;
 }
 
 int size(Stack *stack) {
-    printf("A Pilha contem %d elementos\n\n", stack->size);
+    if (stack == NULL) {
+        return 0;
+    }
 
     return stack->size;
 }
 
+/* ==========================================================
+ * Impressão
+ * ========================================================== */
+
+void printStack(const Stack *stack) {
+    printf("Top -> ");
+
+    if (stack == NULL || isEmpty(stack)) {
+        printf("NULL \n");
+        printf("\nStack size: 0\n");
+
+        return;
+    }
+
+    const Cell *current = stack->top;
+
+    while (current != NULL) {
+        printf("[%d]", current->data);
+
+        if (current->next != NULL) {
+            printf(" -> ");
+        }
+
+        current = current->next;
+    }
+
+    printf("\nStack size: %d\n", stack->size);
+}
+
+void printCell(const Cell *cell) {
+    if (cell == NULL) {
+        printf("cell: NULL\n");
+
+        return;
+    }
+
+    printf("=============== cell ===============\n");
+    printf("Address : %p\n", (void *)cell);
+    printf("Data    : %d\n", cell->data);
+    printf("Next    : %p\n", (void *)cell->next);
+    printf("====================================\n");
+}
+
+/* ==========================================================
+ * Limpeza
+ * ========================================================== */
+
 void freeStack(Stack *stack) {
+    if (stack == NULL) {
+        return;
+    }
+
     Cell *current = stack->top;
 
     while (current != NULL){
@@ -147,4 +165,15 @@ void freeStack(Stack *stack) {
     }
 
     stack->top = NULL;
+    stack->size = 0;
+}
+
+void destroyStack(Stack *stack) {
+    if (stack == NULL) {
+        return;
+    }
+
+    freeStack(stack);
+
+    free(stack);
 }
