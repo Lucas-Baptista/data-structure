@@ -49,6 +49,8 @@ bool enqueue(Queue *queue, int value) {
 
     Node *newNode = createNode(value);
 
+    if (!newNode) return false;
+
     if (isEmpty(queue)) {
         queue->front = newNode;
         queue->rear = newNode;
