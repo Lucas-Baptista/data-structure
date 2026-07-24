@@ -115,3 +115,69 @@ Node *search(const BinarySearchTree *tree, int value) {
     return NULL;
 }
 
+/* ==========================================================
+ * Percursos
+ * ========================================================== */
+
+static void inOrder(Node *start) {
+    if (start == NULL) return;
+
+    inOrder(start->left);
+
+    printf("%d ", start->data);
+
+    inOrder(start->right);
+
+}
+
+static void preOrder(Node *start) {
+    if (start == NULL) return;
+
+    printf("%d ", start->data);
+
+    preOrder(start->left);
+
+    preOrder(start->right);
+}
+
+static void postOrder(Node *start) {
+    if (start == NULL) return;
+
+    postOrder(start->left);
+
+    postOrder(start->right);
+
+    printf("%d ", start->data);
+}
+
+
+void printInOrder(const BinarySearchTree *tree) {
+    if (tree == NULL) return;
+
+    printf("\n");
+
+    inOrder(tree->root);
+
+    printf("\n\n");
+}
+
+void printPreOrder(const BinarySearchTree *tree) {
+    if (tree == NULL) return;
+
+    printf("\n");
+
+    preOrder(tree->root);
+
+    printf("\n\n");
+}
+
+void printPostOrder(const BinarySearchTree *tree) {
+    if (tree == NULL) return;
+
+    printf("\n");
+
+    postOrder(tree->root);
+
+    printf("\n\n");
+}
+
