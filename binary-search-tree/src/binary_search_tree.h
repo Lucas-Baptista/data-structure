@@ -16,5 +16,6 @@ BinarySearchTree *initBinarySearchTree();
 
 bool insert(BinarySearchTree *tree, int value);
 
+Node *search(const BinarySearchTree *tree, int value);
 
 #endif

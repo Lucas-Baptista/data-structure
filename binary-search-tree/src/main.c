@@ -20,6 +20,10 @@ int main() {
     insert(tree, 60);
     insert(tree, 80);
 
+    printf(search(tree, 60) ? "FOUND\n" : "NOT FOUND\n");
+
+    printf(search(tree, 100) ? "FOUND\n" : "NOT FOUND\n");
+
 
     
     return 0;

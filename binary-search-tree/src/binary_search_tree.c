@@ -87,4 +87,31 @@ bool insert(BinarySearchTree *tree, int value) {
     return true;
 }
 
+/* ==========================================================
+ * Busca
+ * ========================================================== */
+
+Node *search(const BinarySearchTree *tree, int value) {
+    if (tree == NULL) {
+        return NULL;
+    }
+
+    Node *current = tree->root;
+
+    while (current != NULL) {
+
+        if (current->data == value) return current;
+
+        if (value < current->data) {
+
+            current = current->left;
+        
+        } else if (value > current->data) {
+        
+            current = current->right;
+        }
+    }
+
+    return NULL;
+}
 
