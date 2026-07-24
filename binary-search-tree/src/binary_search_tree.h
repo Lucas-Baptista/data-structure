@@ -18,11 +18,14 @@ bool insert(BinarySearchTree *tree, int value);
 
 Node *search(const BinarySearchTree *tree, int value);
 
+Node *findMin(const BinarySearchTree *tree);
+
 void printInOrder(const BinarySearchTree *tree);
 
 void printPreOrder(const BinarySearchTree *tree);
 
 void printPostOrder(const BinarySearchTree *tree);
+
 
 
 #endif

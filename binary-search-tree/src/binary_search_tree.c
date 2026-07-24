@@ -115,6 +115,18 @@ Node *search(const BinarySearchTree *tree, int value) {
     return NULL;
 }
 
+Node *findMin(const BinarySearchTree *tree) {
+    if (tree == NULL || tree->root == NULL) return NULL;
+
+    Node *current = tree->root;
+
+    while (current->left != NULL) {
+        current = current->left;
+    }
+
+    return current;
+}
+
 /* ==========================================================
  * Percursos
  * ========================================================== */

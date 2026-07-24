@@ -29,6 +29,9 @@ int main() {
     printPreOrder(tree);
     
     printPostOrder(tree);
+
+    Node *min = findMin(tree);
+    min ? printf("Mínimo: %d\n\n", min->data) : printf("Arvore vazia\n\n");
     
     return 0;
 }
