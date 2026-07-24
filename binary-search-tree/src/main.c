@@ -32,6 +32,9 @@ int main() {
 
     Node *min = findMin(tree);
     min ? printf("Mínimo: %d\n\n", min->data) : printf("Arvore vazia\n\n");
+
+    Node *max = findMax(tree);
+    max ? printf("Máximo: %d\n\n", max->data) : printf("Arvore vazia\n\n");
     
     return 0;
 }

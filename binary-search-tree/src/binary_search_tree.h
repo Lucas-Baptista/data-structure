@@ -20,6 +20,8 @@ Node *search(const BinarySearchTree *tree, int value);
 
 Node *findMin(const BinarySearchTree *tree);
 
+Node *findMax(const BinarySearchTree *tree);
+
 void printInOrder(const BinarySearchTree *tree);
 
 void printPreOrder(const BinarySearchTree *tree);

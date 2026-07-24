@@ -115,16 +115,36 @@ Node *search(const BinarySearchTree *tree, int value) {
     return NULL;
 }
 
-Node *findMin(const BinarySearchTree *tree) {
-    if (tree == NULL || tree->root == NULL) return NULL;
+static Node *findMinNode(Node *node) {
+    if (node == NULL) return NULL;
 
-    Node *current = tree->root;
-
-    while (current->left != NULL) {
-        current = current->left;
+    while (node->left != NULL) {
+        node = node->left;
     }
 
-    return current;
+    return node;
+}
+
+Node *findMin(const BinarySearchTree *tree) {
+    if (tree == NULL) return NULL;
+
+    return findMinNode(tree->root);
+}
+
+static Node *findMaxNode(Node *node) {
+    if (node == NULL) return NULL;
+
+    while (node->right != NULL) {
+        node = node->right;
+    }
+
+    return node;
+}
+
+Node *findMax(const BinarySearchTree *tree) {
+    if (tree == NULL) return NULL;
+
+    return findMaxNode(tree->root);
 }
 
 /* ==========================================================
