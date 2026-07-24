@@ -14,4 +14,7 @@ typedef struct BinarySearchTree {
 
 BinarySearchTree *initBinarySearchTree();
 
+bool insert(BinarySearchTree *tree, int value);
+
+
 #endif

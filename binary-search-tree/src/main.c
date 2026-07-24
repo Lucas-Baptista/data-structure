@@ -11,6 +11,16 @@ int main() {
         printf("Failed to create tree.\n");
         return -1;
     }
+
+    insert(tree, 50);
+    insert(tree, 30);
+    insert(tree, 70);
+    insert(tree, 20);
+    insert(tree, 40);
+    insert(tree, 60);
+    insert(tree, 80);
+
+
     
     return 0;
 }
