@@ -28,6 +28,6 @@ void printPreOrder(const BinarySearchTree *tree);
 
 void printPostOrder(const BinarySearchTree *tree);
 
-
+int height(const BinarySearchTree *tree);
 
 #endif

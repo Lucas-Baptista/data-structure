@@ -19,6 +19,7 @@ int main() {
     insert(tree, 40);
     insert(tree, 60);
     insert(tree, 80);
+    insert(tree, 10);
 
     printf(search(tree, 60) ? "FOUND\n\n" : "NOT FOUND\n");
 
@@ -35,6 +36,8 @@ int main() {
 
     Node *max = findMax(tree);
     max ? printf("Máximo: %d\n\n", max->data) : printf("Arvore vazia\n\n");
+
+    printf("%d\n", height(tree));
     
     return 0;
 }

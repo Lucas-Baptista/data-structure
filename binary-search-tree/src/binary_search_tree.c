@@ -213,3 +213,26 @@ void printPostOrder(const BinarySearchTree *tree) {
     printf("\n\n");
 }
 
+/* ==========================================================
+ * Altura
+ * ========================================================== */
+
+static int heightNode(const Node *node) {
+    if (node == NULL)
+        return -1;
+
+    int leftHeight = heightNode(node->left);
+    int rightHeight = heightNode(node->right);
+
+    if (leftHeight > rightHeight)
+        return leftHeight + 1;
+
+    return rightHeight + 1;
+}
+
+int height(const BinarySearchTree *tree) {
+    if (tree == NULL)
+        return -1;
+
+    return heightNode(tree->root);
+}
