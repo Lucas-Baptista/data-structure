@@ -7,7 +7,7 @@
  * Helpers privados
  * ========================================================== */
 
-Node *createNode(int value) {
+static Node *createNode(int value) {
     Node *newNode = malloc(sizeof(Node));
 
     if (!newNode) {
@@ -21,6 +21,20 @@ Node *createNode(int value) {
     return newNode;
 }
 
+static void printNode(const Node *node) {
+
+    if (node == NULL) {
+        printf("NULL\n");
+        return;
+    }
+
+    printf("Address : %p\n", (void *)node);
+    printf("Data    : %d\n", node->data);
+    printf("Left    : %p\n", (void *)node->left);
+    printf("Right    : %p\n", (void *)node->right);
+    printf("\n\n");
+}
+
 /* ==========================================================
  * Inicialização
  * ========================================================== */
@@ -32,9 +46,10 @@ BinarySearchTree *initBinarySearchTree() {
         return NULL;
     }
 
+    tree->root = NULL;
+
     return tree;
 }
-
 /* ==========================================================
  * Inserção
  * ========================================================== */
@@ -151,66 +166,54 @@ Node *findMax(const BinarySearchTree *tree) {
  * Percursos
  * ========================================================== */
 
-static void inOrder(Node *start) {
+static void inOrder(const Node *start, void (*action)(const Node *)){
     if (start == NULL) return;
 
-    inOrder(start->left);
+    inOrder(start->left, action);
 
-    printf("%d ", start->data);
+    action(start);
 
-    inOrder(start->right);
+    inOrder(start->right, action);
 
 }
 
-static void preOrder(Node *start) {
+static void preOrder(const Node *start, void (*action)(const Node *)) {
     if (start == NULL) return;
 
-    printf("%d ", start->data);
+    action(start);
 
-    preOrder(start->left);
+    preOrder(start->left, action);
 
-    preOrder(start->right);
+    preOrder(start->right, action);
 }
 
-static void postOrder(Node *start) {
+static void postOrder(const Node *start, void (*action)(const Node *)) {
     if (start == NULL) return;
 
-    postOrder(start->left);
+    postOrder(start->left, action);
 
-    postOrder(start->right);
+    postOrder(start->right, action);
 
-    printf("%d ", start->data);
+    action(start);
 }
 
 
 void printInOrder(const BinarySearchTree *tree) {
     if (tree == NULL) return;
 
-    printf("\n");
-
-    inOrder(tree->root);
-
-    printf("\n\n");
+    inOrder(tree->root, printNode);
 }
 
 void printPreOrder(const BinarySearchTree *tree) {
     if (tree == NULL) return;
 
-    printf("\n");
-
-    preOrder(tree->root);
-
-    printf("\n\n");
+    preOrder(tree->root, printNode);
 }
 
 void printPostOrder(const BinarySearchTree *tree) {
     if (tree == NULL) return;
 
-    printf("\n");
-
-    postOrder(tree->root);
-
-    printf("\n\n");
+    postOrder(tree->root, printNode);
 }
 
 /* ==========================================================
