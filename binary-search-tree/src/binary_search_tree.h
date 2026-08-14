@@ -32,4 +32,6 @@ int height(const BinarySearchTree *tree);
 
 int countNodes(const BinarySearchTree *tree);
 
+int countLeaves(const BinarySearchTree *tree);
+
 #endif

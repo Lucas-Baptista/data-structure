@@ -39,7 +39,9 @@ int main() {
 
     printf("%d\n\n", height(tree));
 
-    printf("%d\n", countNodes(tree));
+    printf("%d\n\n", countNodes(tree));
+
+    printf("%d\n", countLeaves(tree));
     
     return 0;
 }

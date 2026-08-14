@@ -255,3 +255,24 @@ int countNodes(const BinarySearchTree *tree) {
 
     return countNodesRecursive(tree->root);
 }
+
+/* ==========================================================
+ * Numero de Folhas
+ * ========================================================== */
+
+static int countLeavesRecursive(const Node *node) {
+    if (node == NULL) return 0;
+
+    if (node->left == NULL && node->right == NULL) return 1;
+
+    int leftLeaves = countLeavesRecursive(node->left);
+    int rightLeaves = countLeavesRecursive(node->right);
+
+    return leftLeaves + rightLeaves;
+}
+
+int countLeaves(const BinarySearchTree *tree) {
+    if (tree == NULL) return 0;
+
+    return countLeavesRecursive(tree->root);
+}
