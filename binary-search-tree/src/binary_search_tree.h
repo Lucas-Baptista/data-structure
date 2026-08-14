@@ -30,4 +30,6 @@ void printPostOrder(const BinarySearchTree *tree);
 
 int height(const BinarySearchTree *tree);
 
+int countNodes(const BinarySearchTree *tree);
+
 #endif

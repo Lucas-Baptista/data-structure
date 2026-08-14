@@ -236,3 +236,22 @@ int height(const BinarySearchTree *tree) {
 
     return heightNode(tree->root);
 }
+
+/* ==========================================================
+ * Numero de Nós
+ * ========================================================== */
+
+static int countNodesRecursive(const Node *node) {
+    if (node == NULL) return 0;
+
+    int leftNodes = countNodesRecursive(node->left);
+    int rightNodes = countNodesRecursive(node->right);
+
+    return leftNodes + rightNodes + 1;
+}
+
+int countNodes(const BinarySearchTree *tree) {
+    if (tree == NULL || tree->root == NULL) return 0;
+
+    return countNodesRecursive(tree->root);
+}

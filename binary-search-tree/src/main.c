@@ -37,7 +37,9 @@ int main() {
     Node *max = findMax(tree);
     max ? printf("Máximo: %d\n\n", max->data) : printf("Arvore vazia\n\n");
 
-    printf("%d\n", height(tree));
+    printf("%d\n\n", height(tree));
+
+    printf("%d\n", countNodes(tree));
     
     return 0;
 }
