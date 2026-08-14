@@ -21,7 +21,7 @@ static Node *createNode(int value) {
     return newNode;
 }
 
-static void printNode(const Node *node) {
+static void printNode(Node *node) {
 
     if (node == NULL) {
         printf("NULL\n");
@@ -166,7 +166,7 @@ Node *findMax(const BinarySearchTree *tree) {
  * Percursos
  * ========================================================== */
 
-static void inOrder(const Node *start, void (*action)(const Node *)){
+static void inOrder(Node *start, void (*action)(Node *)){
     if (start == NULL) return;
 
     inOrder(start->left, action);
@@ -177,7 +177,7 @@ static void inOrder(const Node *start, void (*action)(const Node *)){
 
 }
 
-static void preOrder(const Node *start, void (*action)(const Node *)) {
+static void preOrder(Node *start, void (*action)(Node *)) {
     if (start == NULL) return;
 
     action(start);
@@ -187,7 +187,7 @@ static void preOrder(const Node *start, void (*action)(const Node *)) {
     preOrder(start->right, action);
 }
 
-static void postOrder(const Node *start, void (*action)(const Node *)) {
+static void postOrder(Node *start, void (*action)(Node *)) {
     if (start == NULL) return;
 
     postOrder(start->left, action);
@@ -278,4 +278,26 @@ int countLeaves(const BinarySearchTree *tree) {
     if (tree == NULL) return 0;
 
     return countLeavesRecursive(tree->root);
+}
+
+/* ==========================================================
+ * Limpeza
+ * ========================================================== */
+
+static void freeNode(Node *node) {
+    free(node);
+}
+
+static void clearRecursive(Node *node) {
+    if (node == NULL) return;
+    
+    postOrder(node, freeNode);
+}
+
+void clear(BinarySearchTree *tree) {
+    if (tree == NULL) return;
+
+    clearRecursive(tree->root);
+
+    tree->root = NULL;
 }

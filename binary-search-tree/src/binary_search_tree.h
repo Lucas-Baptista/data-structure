@@ -34,4 +34,6 @@ int countNodes(const BinarySearchTree *tree);
 
 int countLeaves(const BinarySearchTree *tree);
 
+void clear(BinarySearchTree *tree);
+
 #endif
