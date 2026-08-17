@@ -301,3 +301,11 @@ void clear(BinarySearchTree *tree) {
 
     tree->root = NULL;
 }
+
+void destroyBinarySearchTree(BinarySearchTree *tree) {
+    if (tree == NULL) return;
+
+    clearRecursive(tree->root);
+
+    free(tree);
+}

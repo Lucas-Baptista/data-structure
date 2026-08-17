@@ -43,7 +43,7 @@ int main() {
 
     printf("%d\n", countLeaves(tree));
 
-    clear(tree);
+    destroyBinarySearchTree(tree);
     
     return 0;
 }
