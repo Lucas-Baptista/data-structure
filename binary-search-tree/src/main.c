@@ -21,6 +21,8 @@ int main() {
     insert(tree, 80);
     insert(tree, 10);
 
+    printTree(tree);
+
     printf(search(tree, 60) ? "FOUND\n\n" : "NOT FOUND\n");
 
     printf(search(tree, 100) ? "FOUND\n" : "NOT FOUND\n");
@@ -42,6 +44,14 @@ int main() {
     printf("%d\n\n", countNodes(tree));
 
     printf("%d\n", countLeaves(tree));
+
+    if (removeValue(tree, 50)) {
+        printf("\n50 removido com sucesso.\n");
+    } else {
+        printf("\nFalha ao remover 50.\n");
+    }
+
+    printTree(tree);
 
     destroyBinarySearchTree(tree);
     

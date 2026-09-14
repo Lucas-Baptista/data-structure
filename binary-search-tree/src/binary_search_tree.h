@@ -7,6 +7,10 @@ typedef struct Node {
     int data;
 } Node;
 
+typedef struct SearchNode {
+    struct Node *target;
+    struct Node *parent;
+} SearchNode;
 
 typedef struct BinarySearchTree {
     struct Node *root;
@@ -16,11 +20,13 @@ BinarySearchTree *initBinarySearchTree();
 
 bool insert(BinarySearchTree *tree, int value);
 
-Node *search(const BinarySearchTree *tree, int value);
+SearchNode *search(const BinarySearchTree *tree, int value);
 
 Node *findMin(const BinarySearchTree *tree);
 
 Node *findMax(const BinarySearchTree *tree);
+
+bool removeValue(BinarySearchTree *tree, int value);
 
 void printInOrder(const BinarySearchTree *tree);
 
@@ -37,5 +43,7 @@ int countLeaves(const BinarySearchTree *tree);
 void clear(BinarySearchTree *tree);
 
 void destroyBinarySearchTree(BinarySearchTree *tree);
+
+void printTree(const BinarySearchTree *tree);
 
 #endif
